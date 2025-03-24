@@ -80,6 +80,7 @@ int make_hann_window(float *window, int max_count){
   fftwf_plan rev_filter_plan;
 
   static complex float *buffer=NULL;
+  static int LastN=0;
 
 // Apply Kaiser window to filter frequency response
 // "response" is SIMD-aligned array of N complex floats
@@ -92,6 +93,8 @@ int window_filter(int const L,int const M,complex float * const response,float c
   int const N = L + M - 1;
 
   // fftw_plan can overwrite its buffers, so we're forced to make a temp. Ugh.
+ // Just iin case here is a size change
+  if((LastN < N) && (buffer != NULL)) {fftw_free(buffer); buffer = NULL; LastN=N;}
   if(buffer == NULL){
   buffer = fftwf_alloc_complex(N);
 

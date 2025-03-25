@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include "sdr.h"
 
-
+#define WISDOM_MODE FFTW_PATIENT
 // Modified Bessel function of the 0th kind, used by the Kaiser window
 const float i0(float const z){
   const float t = (z*z)/4;
@@ -123,8 +123,14 @@ int window_filter(int const L,int const M,complex float * const response,float c
   float const gain = 1.;
 
 	//shift the buffer to make it causal
-  for(int n = M - 1; n >= 0; n--)
-    buffer[n] = buffer[ (n-M/2+N) % N];
+   int MM=N-(M>>1);
+  for(int n = M - 1; n >= 0; n--){
+    //buffer[n] = buffer[ (n-M/2+N) % N];
+	int k=n+MM;
+	buffer[n]=buffer[(k>=N)?(k-N):k];
+  }
+     // avoid % operator - aa2ay
+    //buffer[n] = buffer[ (n-M/2+N) % N];
 
 #if 0
   printf("#Filter time impulse response, shifted\n");

@@ -7,3 +7,5 @@ MWM AA2AY
 4. reuse buffer memory instead of freeing and reallocating it
 5. Use FFTW to free memory(FFTW say this a must, if the memory is allocated with FFTW.
 6. eliminate the use of modulo operator.(25 instruction cycles instead of 2 for compare)
+7. In build file delete wisdom file when you compile.(recommended by FFTW developers)
+8. Use fast math to speed up calculations

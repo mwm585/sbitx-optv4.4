@@ -9,3 +9,5 @@ MWM AA2AY
 6. eliminate the use of modulo operator.(25 instruction cycles instead of 2 for compare)
 7. In build file delete wisdom file when you compile.(recommended by FFTW developers)
 8. Use fast math to speed up calculations
+9. specify the rpi4 cpu to gcc for better code generation
+    

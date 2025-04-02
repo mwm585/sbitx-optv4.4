@@ -6390,7 +6390,7 @@ gboolean ui_tick(gpointer gook)
 	}
 
 	// every 20 ticks call modem_poll to see if any modes need work done
-	if (ticks % 20 == 0)
+	if (ticks && 0xF == 0)
 		modem_poll(mode_id(get_field("r1:mode")->value));
 	else
 	{
